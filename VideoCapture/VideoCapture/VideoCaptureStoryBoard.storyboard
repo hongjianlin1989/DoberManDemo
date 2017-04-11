@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Custom Over Lay-->
+        <scene sceneID="ob4-fL-Txc">
+            <objects>
+                <viewController storyboardIdentifier="CustomOverLay" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qaT-hU-AOR" customClass="CustomOverLay" customModule="VideoCapture" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ZY1-uX-Abb"/>
+                        <viewControllerLayoutGuide type="bottom" id="SHK-Dw-zRd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZRT-gg-fK9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PeI-eb-V5c">
+                                <rect key="frame" x="0.0" y="440" width="320" height="128"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Mq-G2-VcP">
+                                        <rect key="frame" x="128" y="31.5" width="65" height="65"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="9Mq-G2-VcP" secondAttribute="height" multiplier="1:1" id="UNP-Ky-nkE"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="Record Buttno"/>
+                                        <connections>
+                                            <action selector="recordButtonClick:" destination="qaT-hU-AOR" eventType="touchUpInside" id="nb1-fk-fWn"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptt-A9-gvf">
+                                        <rect key="frame" x="228" y="49" width="24" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Ptt-A9-gvf" secondAttribute="height" multiplier="4:5" id="R1i-Y6-ax9"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="Switch icon"/>
+                                        <connections>
+                                            <action selector="CameraDirectionClick:" destination="qaT-hU-AOR" eventType="touchUpInside" id="lJe-GN-Vd2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Ptt-A9-gvf" firstAttribute="centerX" secondItem="PeI-eb-V5c" secondAttribute="centerX" multiplier="1.5" id="1xA-rL-MHG"/>
+                                    <constraint firstItem="9Mq-G2-VcP" firstAttribute="width" secondItem="PeI-eb-V5c" secondAttribute="height" multiplier="65:128" id="DZI-z0-P7V"/>
+                                    <constraint firstItem="9Mq-G2-VcP" firstAttribute="centerY" secondItem="PeI-eb-V5c" secondAttribute="centerY" id="W40-ue-V7z"/>
+                                    <constraint firstItem="Ptt-A9-gvf" firstAttribute="centerY" secondItem="PeI-eb-V5c" secondAttribute="centerY" id="Ylx-75-wFM"/>
+                                    <constraint firstAttribute="width" secondItem="PeI-eb-V5c" secondAttribute="height" multiplier="5:2" id="aC4-3u-gf2"/>
+                                    <constraint firstItem="9Mq-G2-VcP" firstAttribute="centerX" secondItem="PeI-eb-V5c" secondAttribute="centerX" id="cPn-vz-PKM"/>
+                                    <constraint firstItem="Ptt-A9-gvf" firstAttribute="width" secondItem="PeI-eb-V5c" secondAttribute="height" multiplier="3:16" id="qAy-gD-8l7"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgz-BP-dWW">
+                                <rect key="frame" x="265" y="10" width="46" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Hgz-BP-dWW" secondAttribute="height" multiplier="46:37" id="41m-Tp-03t"/>
+                                </constraints>
+                                <state key="normal" title="X"/>
+                                <connections>
+                                    <action selector="closeButtonClick:" destination="qaT-hU-AOR" eventType="touchUpInside" id="tt8-RQ-FgZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Hgz-BP-dWW" firstAttribute="width" secondItem="ZRT-gg-fK9" secondAttribute="height" multiplier="23:284" id="8cq-WZ-N2B"/>
+                            <constraint firstItem="PeI-eb-V5c" firstAttribute="centerY" secondItem="ZRT-gg-fK9" secondAttribute="centerY" multiplier="1.775" id="agb-De-AL5"/>
+                            <constraint firstItem="PeI-eb-V5c" firstAttribute="width" secondItem="ZRT-gg-fK9" secondAttribute="height" multiplier="40:71" id="cJ1-F1-HAe"/>
+                            <constraint firstItem="PeI-eb-V5c" firstAttribute="centerX" secondItem="ZRT-gg-fK9" secondAttribute="centerX" id="d79-EP-gbo"/>
+                            <constraint firstItem="Hgz-BP-dWW" firstAttribute="centerY" secondItem="ZRT-gg-fK9" secondAttribute="centerY" multiplier="0.1" id="mI9-dK-mlG"/>
+                            <constraint firstItem="Hgz-BP-dWW" firstAttribute="centerX" secondItem="ZRT-gg-fK9" secondAttribute="centerX" multiplier="1.8" id="vZo-YC-Dyg"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EhY-xl-yKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1132.5" y="181.69014084507043"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Record Buttno" width="65" height="64"/>
+        <image name="Switch icon" width="24" height="30"/>
+    </resources>
+</document>
