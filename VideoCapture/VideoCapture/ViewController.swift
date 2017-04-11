@@ -23,26 +23,26 @@ class ViewController: UIViewController {
     @IBAction func showCameraView(_ sender: Any) {
     
         let storyboard = UIStoryboard(name: "VideoCaptureStoryBoard", bundle: nil)
-        videoCaptureOverlay = storyboard.instantiateViewController(withIdentifier: "CustomOverLay") as? CustomOverLay
-        videoCaptureOverlay?.view.frame = self.view.bounds;
-        imagePicker = UIImagePickerController.init()
-        imagePicker?.allowsEditing = false
-        imagePicker?.sourceType = .camera
-        imagePicker?.showsCameraControls = false
-        imagePicker?.isNavigationBarHidden = true
-        imagePicker?.isToolbarHidden = true
+        self.videoCaptureOverlay = storyboard.instantiateViewController(withIdentifier: "CustomOverLay") as? CustomOverLay
+        self.videoCaptureOverlay?.view.frame = self.view.bounds;
+        self.imagePicker = UIImagePickerController.init()
+        self.imagePicker?.allowsEditing = false
+        self.imagePicker?.sourceType = .camera
+        self.imagePicker?.showsCameraControls = false
+        self.imagePicker?.isNavigationBarHidden = true
+        self.imagePicker?.isToolbarHidden = true
      
         let cameraTransform = CGAffineTransform(translationX: 0.0, y: 81.0)
-        imagePicker?.cameraViewTransform = cameraTransform;
+        self.imagePicker?.cameraViewTransform = cameraTransform;
         
         let cameraTransformscale = CGAffineTransform(scaleX:1.7, y:1.7)
-        imagePicker?.cameraViewTransform = cameraTransformscale;
+        self.imagePicker?.cameraViewTransform = cameraTransformscale;
         
-        videoCaptureOverlay?.imagePicker = imagePicker
-        videoCaptureOverlay?.imagePicker?.view.addSubview((videoCaptureOverlay?.view)!)
+        self.videoCaptureOverlay?.imagePicker = self.imagePicker
+        self.imagePicker?.view.addSubview((videoCaptureOverlay?.view)!)
         
-        imagePicker?.delegate = videoCaptureOverlay as? UIImagePickerControllerDelegate & UINavigationControllerDelegate
-        self.present(imagePicker!, animated: false) {}
+        self.imagePicker?.delegate = videoCaptureOverlay
+        self.present(self.imagePicker!, animated: false) {}
         
     }
 
