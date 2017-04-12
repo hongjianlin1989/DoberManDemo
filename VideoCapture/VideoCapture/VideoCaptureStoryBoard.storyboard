@@ -32,6 +32,7 @@
                                             <constraint firstAttribute="width" secondItem="9Mq-G2-VcP" secondAttribute="height" multiplier="1:1" id="UNP-Ky-nkE"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="Record Buttno"/>
+                                        <state key="selected" backgroundImage="Record Buttno Done"/>
                                         <connections>
                                             <action selector="recordButtonClick:" destination="qaT-hU-AOR" eventType="touchUpInside" id="nb1-fk-fWn"/>
                                         </connections>
@@ -59,7 +60,7 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hgz-BP-dWW">
-                                <rect key="frame" x="265" y="10" width="46" height="37"/>
+                                <rect key="frame" x="265" y="47" width="46" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Hgz-BP-dWW" secondAttribute="height" multiplier="46:37" id="41m-Tp-03t"/>
                                 </constraints>
@@ -68,17 +69,32 @@
                                     <action selector="closeButtonClick:" destination="qaT-hU-AOR" eventType="touchUpInside" id="tt8-RQ-FgZ"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PRs-qN-vkP" customClass="customProgressView" customModule="VideoCapture" customModuleProvider="target">
+                                <rect key="frame" x="25" y="28" width="270" height="2"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="progressTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="trackTintColor" red="0.93725490199999995" green="0.59607843140000005" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Hgz-BP-dWW" firstAttribute="width" secondItem="ZRT-gg-fK9" secondAttribute="height" multiplier="23:284" id="8cq-WZ-N2B"/>
+                            <constraint firstAttribute="trailing" secondItem="PRs-qN-vkP" secondAttribute="trailing" constant="25" id="Q1O-5c-pFn"/>
                             <constraint firstItem="PeI-eb-V5c" firstAttribute="centerY" secondItem="ZRT-gg-fK9" secondAttribute="centerY" multiplier="1.775" id="agb-De-AL5"/>
                             <constraint firstItem="PeI-eb-V5c" firstAttribute="width" secondItem="ZRT-gg-fK9" secondAttribute="height" multiplier="40:71" id="cJ1-F1-HAe"/>
                             <constraint firstItem="PeI-eb-V5c" firstAttribute="centerX" secondItem="ZRT-gg-fK9" secondAttribute="centerX" id="d79-EP-gbo"/>
-                            <constraint firstItem="Hgz-BP-dWW" firstAttribute="centerY" secondItem="ZRT-gg-fK9" secondAttribute="centerY" multiplier="0.1" id="mI9-dK-mlG"/>
+                            <constraint firstItem="PRs-qN-vkP" firstAttribute="leading" secondItem="ZRT-gg-fK9" secondAttribute="leading" constant="25" id="diQ-s5-wS1"/>
+                            <constraint firstItem="PRs-qN-vkP" firstAttribute="centerX" secondItem="ZRT-gg-fK9" secondAttribute="centerX" id="hnt-It-mba"/>
+                            <constraint firstItem="Hgz-BP-dWW" firstAttribute="centerY" secondItem="ZRT-gg-fK9" secondAttribute="centerY" multiplier="0.23" id="mI9-dK-mlG"/>
+                            <constraint firstItem="PRs-qN-vkP" firstAttribute="centerY" secondItem="ZRT-gg-fK9" secondAttribute="centerY" multiplier="0.1" id="ukg-p1-omt"/>
                             <constraint firstItem="Hgz-BP-dWW" firstAttribute="centerX" secondItem="ZRT-gg-fK9" secondAttribute="centerX" multiplier="1.8" id="vZo-YC-Dyg"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="progressView" destination="PRs-qN-vkP" id="3lN-6i-yOA"/>
+                        <outlet property="recordButton" destination="9Mq-G2-VcP" id="XO8-ji-Gfs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EhY-xl-yKd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -87,6 +103,7 @@
     </scenes>
     <resources>
         <image name="Record Buttno" width="65" height="64"/>
+        <image name="Record Buttno Done" width="64" height="64"/>
         <image name="Switch icon" width="24" height="30"/>
     </resources>
 </document>
