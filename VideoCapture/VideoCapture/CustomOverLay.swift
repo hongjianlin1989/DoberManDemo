@@ -19,7 +19,7 @@ struct Questions {
 }
 
 class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
+    
     @IBOutlet var progressView: customProgressView!
     
     var imagePicker: UIImagePickerController?
@@ -45,13 +45,13 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         let question1 = Questions(time: 10, questionString: "question1")
         temArray?.append(question1)
         
-    //    let question2 = Questions(time: 15, questionString: "question2")
-    //    temArray?.append(question2)
+        //    let question2 = Questions(time: 15, questionString: "question2")
+        //    temArray?.append(question2)
         
         return temArray!
     }
     
-
+    
     func setUpPicker(picker: UIImagePickerController) {
         
         picker.allowsEditing = false
@@ -61,12 +61,12 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         picker.isToolbarHidden = true
         picker.mediaTypes = NSArray(object: kUTTypeMovie)  as! [String]
         picker.videoQuality = .typeHigh
-
+        
         
         picker.delegate = self
         self.imagePicker = picker;
         
-       self.QuestionArray = self.setUpQuestionArray()
+        self.QuestionArray = self.setUpQuestionArray()
         
     }
     
@@ -81,29 +81,22 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
     
     @IBAction func CameraDirectionClick(_ sender: Any) {
         
-        if self.imagePicker?.cameraDevice == .front
-        {
-            
-            UIView.transition(with: (self.imagePicker?.view)!, duration: 1.0, options:[.allowAnimatedContent, .transitionFlipFromLeft], animations: {
-                
+        UIView.transition(with: (self.imagePicker?.view)!, duration: 1.0, options:[.allowAnimatedContent, .transitionFlipFromLeft], animations: {
+            if self.imagePicker?.cameraDevice == .front
+            {
                 self.imagePicker?.cameraDevice = .rear
-            
-            }, completion: { (Bool) in})
-            
-        }else
-        {
-            UIView.transition(with: (self.imagePicker?.view)!, duration: 1.0, options:[.allowAnimatedContent, .transitionFlipFromLeft], animations: {
-                
+            }else
+            {
                 self.imagePicker?.cameraDevice = .front
-                
-            }, completion: { (Bool) in})
-        }
-        
+            }
+            
+        }, completion: { (Bool) in})
+    
     }
-  
+    
     
     @IBAction func recordButtonClick(_ sender: Any) {
-
+        
         if isRecording == true
         {
             self.imagePicker?.stopVideoCapture()
@@ -131,7 +124,10 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         
         if questionIndex == (self.QuestionArray?.count)!-1
         {
-            self.CombineVideo(VideoArray: self.MoviePathArray!);
+            
+            VideoFileManager.sharedInstance.CombineVideo(VideoArray: self.MoviePathArray!)
+            
+            // self.CombineVideo(VideoArray: self.MoviePathArray!);
         }else
         {
             questionIndex += 1
@@ -141,141 +137,10 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
     
     func showQuestionPopup(index : Int) {
         
-      self.questionPopup?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 400)
-      self.questionPopup?.setupQuestionOverlay(inputQuestion: (self.QuestionArray?[index])!, parentView: self.view)
+        self.questionPopup?.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 400)
+        self.questionPopup?.setupQuestionOverlay(inputQuestion: (self.QuestionArray?[index])!, parentView: self.view)
     }
     
-    
-    func videoCompositionInstructionForTrack(_ track: AVCompositionTrack, asset: AVAsset) -> AVMutableVideoCompositionLayerInstruction {
-        let instruction = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
-        let assetTrack = asset.tracks(withMediaType: AVMediaTypeVideo)[0]
-        
-        let transform = assetTrack.preferredTransform
-        let assetInfo = orientationFromTransform(transform)
-        
-        var scaleToFitRatio = UIScreen.main.bounds.width / assetTrack.naturalSize.width
-        if assetInfo.isPortrait {
-            scaleToFitRatio = UIScreen.main.bounds.width / assetTrack.naturalSize.height
-            let scaleFactor = CGAffineTransform(scaleX: scaleToFitRatio, y: scaleToFitRatio)
-            instruction.setTransform(assetTrack.preferredTransform.concatenating(scaleFactor),
-                                     at: kCMTimeZero)
-        } else {
-            let scaleFactor = CGAffineTransform(scaleX: scaleToFitRatio, y: scaleToFitRatio)
-            var concat = assetTrack.preferredTransform.concatenating(scaleFactor).concatenating(CGAffineTransform(translationX: 0, y: UIScreen.main.bounds.width / 2))
-            if assetInfo.orientation == .down {
-                let fixUpsideDown = CGAffineTransform(rotationAngle: CGFloat(M_PI))
-                let windowBounds = UIScreen.main.bounds
-                let yFix = assetTrack.naturalSize.height + windowBounds.height
-                let centerFix = CGAffineTransform(translationX: assetTrack.naturalSize.width, y: yFix)
-                concat = fixUpsideDown.concatenating(centerFix).concatenating(scaleFactor)
-            }
-            instruction.setTransform(concat, at: kCMTimeZero)
-        }
-        
-        return instruction
-    }
-
-    func orientationFromTransform(_ transform: CGAffineTransform) -> (orientation: UIImageOrientation, isPortrait: Bool) {
-        var assetOrientation = UIImageOrientation.up
-        var isPortrait = false
-        if transform.a == 0 && transform.b == 1.0 && transform.c == -1.0 && transform.d == 0 {
-            assetOrientation = .right
-            isPortrait = true
-        } else if transform.a == 0 && transform.b == -1.0 && transform.c == 1.0 && transform.d == 0 {
-            assetOrientation = .left
-            isPortrait = true
-        } else if transform.a == 1.0 && transform.b == 0 && transform.c == 0 && transform.d == 1.0 {
-            assetOrientation = .up
-        } else if transform.a == -1.0 && transform.b == 0 && transform.c == 0 && transform.d == -1.0 {
-            assetOrientation = .down
-        }
-        return (assetOrientation, isPortrait)
-    }
-    
-    
-    func CombineVideo(VideoArray : Array<Any>)  {
-        
-        let mixComposition = AVMutableComposition()
-        
-        var totalTime: CMTime? = CMTimeMake(0, 60)
-  
-        let mainInstruction = AVMutableVideoCompositionInstruction()
-        
-     
-        
-        for case let urlString as URL in VideoArray {
-           
-            let avAsset = AVAsset(url: urlString)
-            
-            let firstTrack = mixComposition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: Int32(kCMPersistentTrackID_Invalid))
-            do {
-                try firstTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, avAsset.duration), of: avAsset.tracks(withMediaType: AVMediaTypeVideo)[0], at: totalTime!)
-            } catch _ {
-                print("Failed to load first track")
-            }
-            
-            let firstInstruction = videoCompositionInstructionForTrack(firstTrack , asset: avAsset)
-            firstInstruction.setOpacity(0.0, at: CMTimeAdd(totalTime!, avAsset.duration))
-            
-            mainInstruction.layerInstructions.append(firstInstruction)
-            totalTime = CMTimeAdd(totalTime!, avAsset.duration)
-            
-            
-            
-        }
-        
-        
-        mainInstruction.timeRange = CMTimeRangeMake(kCMTimeZero, totalTime!)
-        
-        let mainComposition = AVMutableVideoComposition()
-        mainComposition.instructions = [mainInstruction]
-        mainComposition.frameDuration = CMTimeMake(1, 30)
-        mainComposition.renderSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        
-        // 4 - Get path
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeStyle = .short
-        let date = dateFormatter.string(from: Date())
-        let savePath = (documentDirectory as NSString).appendingPathComponent("mergeVideo-\(date).mov")
-        let url = URL(fileURLWithPath: savePath)
-        
-        // 5 - Create Exporter
-        guard let exporter = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) else { return }
-        exporter.outputURL = url
-        exporter.outputFileType = AVFileTypeQuickTimeMovie
-        exporter.shouldOptimizeForNetworkUse = true
-        exporter.videoComposition = mainComposition
-
-        // 6 - Perform the Export
-        exporter.exportAsynchronously() {
-            DispatchQueue.main.async { _ in
-                self.exportDidFinish(exporter)
-            }
-        }
-        
-    }
-    
-    func exportDidFinish(_ session: AVAssetExportSession) {
-        if session.status == AVAssetExportSessionStatus.completed {
-            let outputURL = session.outputURL
-            
-            PHPhotoLibrary.shared().performChanges({ () -> Void in
-                let createAssetRequest: PHAssetChangeRequest = PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: outputURL!)!
-                createAssetRequest.placeholderForCreatedAsset
-            }) { (success, error) -> Void in
-                if success {
-                    print("success")
-                }
-                else {
-                    print("unsuccess")
-                }
-            }
-        }
-        
-    }
-
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -297,16 +162,16 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         }
     }
     
-
-
+    
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
