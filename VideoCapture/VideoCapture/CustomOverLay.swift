@@ -19,13 +19,6 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         super.viewDidLoad()
 
     }
-    
-    
-    func setUpDelegate() {
-        
-        self.imagePicker?.delegate = self
-        
-    }
 
     func setUpPicker(picker: UIImagePickerController) {
         
@@ -34,6 +27,7 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         picker.showsCameraControls = false
         picker.isNavigationBarHidden = true
         picker.isToolbarHidden = true
+        picker.mediaTypes = NSArray(object: kUTTypeMovie)  as! [String]
         
         let cameraTransform = CGAffineTransform(translationX: 0.0, y: 81.0)
         picker.cameraViewTransform = cameraTransform;
@@ -82,21 +76,11 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
 
         if isRecording == true
         {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-              self.imagePicker?.stopVideoCapture()
-            }
+            self.imagePicker?.stopVideoCapture()
             isRecording = false
         }else
         {
-            withUnsafePointer(to: &imagePicker) {
-                print(" str value \(String(describing: imagePicker)) has address: \($0)")
-            }
-            
-         //   self.imagePicker?.stopVideoCapture()
-        //    self.imagePicker?.delegate = self
-       //     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-             let good = self.imagePicker?.startVideoCapture()
-       //     }
+            self.imagePicker?.startVideoCapture()
             isRecording = true
         }
     }
