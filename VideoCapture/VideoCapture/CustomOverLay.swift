@@ -45,8 +45,8 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         let question1 = Questions(time: 10, questionString: "question1")
         temArray?.append(question1)
         
-        let question2 = Questions(time: 15, questionString: "question2")
-        temArray?.append(question2)
+    //    let question2 = Questions(time: 15, questionString: "question2")
+    //    temArray?.append(question2)
         
         return temArray!
     }
@@ -60,10 +60,8 @@ class CustomOverLay: UIViewController,UINavigationControllerDelegate, UIImagePic
         picker.isNavigationBarHidden = true
         picker.isToolbarHidden = true
         picker.mediaTypes = NSArray(object: kUTTypeMovie)  as! [String]
-    
-    
-//        let cameraTransformscale = CGAffineTransform(scaleX:1.3, y:1.3)
-//        picker.cameraViewTransform = cameraTransformscale;
+        picker.videoQuality = .typeHigh
+
         
         picker.delegate = self
         self.imagePicker = picker;
